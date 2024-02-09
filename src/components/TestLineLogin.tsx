@@ -54,7 +54,7 @@ export const TestLogin = () => {
 
   return (
     <>
-      <AppBar />
+      <AppBar storeData={null}/>
       <div className="store-setting-container">
         <h1>Test Line Login</h1>
         {userProfile ? (
