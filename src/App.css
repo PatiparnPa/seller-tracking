@@ -1,0 +1,799 @@
+/*AppBar*/
+.app-bar {
+    background-color: #2357A5;
+    color: black;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    height: 70px;
+
+  }
+  .app-bar h1 {
+    margin: 0;
+  }
+  
+  .customer-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px; 
+    overflow: hidden;
+    margin-right: 10px;
+    
+  }
+
+  .customer-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.right-elements {
+  display: flex;
+  align-items: center; /* Vertically align elements */
+}
+
+.elements-container {
+  display: flex;
+  align-items: center; /* Vertically align elements */
+}
+
+/* Style the dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style the dropdown button */
+.dropdown-button {
+  background-color:#2357A5;
+  color: #fff;
+  border: none;
+  padding: 5px 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* Style the dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: -110px;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Style the dropdown links */
+.dropdown-content a {
+  color: #002336;
+  text-decoration: none;
+  display: block;
+  padding: 10px 15px;
+}
+
+/* Change link color on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown content when the button is hovered over */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Style for the divider */
+.divider {
+  border: none;
+  border-top: 1px solid #7e7a7a; /* Adjust the style and color of the divider */
+  margin: 5px 0; /* Adjust margin as needed */
+}
+
+.dropdown-link-button {
+  background-color: #f9f9f9;
+  width: 100%;
+  color:#002336;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  text-align: left;
+  /* Add other styles as needed */
+}
+.dropdown-link-button:hover {
+  background-color: #ddd;
+}
+/*HomePage*/
+.header {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.left-text, .right-text {
+  color: #002336;
+  font-size: 18px;
+}
+
+.right-text {
+  color: #2357A5;
+  text-decoration: none;
+}
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%; /* Adjust this value as needed */
+  }
+  
+  .rounded-button, .big-rounded-button {
+    border-radius: 5px;
+    border: none;
+    background-color: #2357A5;
+    color: #fff;
+    padding: 20px 40px;
+    margin: 0 30px;
+    cursor: pointer;
+  }
+
+  .big-rounded-button {
+    padding: 15px 30px;
+    font-size: 50px;
+    text-decoration: none;
+  }
+  
+  .rounded-button:hover, .big-rounded-button:hover, .edit-button:hover, .add-button:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+
+  .button-group {
+    margin-top: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .container {
+    margin-bottom: 2px;
+  }
+
+  /*Report Page*/
+
+  .report-options {
+    display: flex;
+    justify-content: space-between; /* Adjust this as needed */
+    align-items: center;
+    padding: 20px 100px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  .report-content {
+    text-align: center; /* Center align the content */
+    margin-top: 10px; /* Add margin for spacing */
+    padding: 8%;
+    white-space: nowrap;
+  }
+  
+  .report-content h1 {
+    margin-top: 20%;
+    font-size: 50px;
+  }
+
+  .report-content-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #FAFAFA;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding-bottom: 8%;
+  }
+
+  .report-button {
+    background: none;
+    border: none;
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .report-button:hover {
+    background-color: inherit;
+  color: inherit;
+  cursor: pointer;
+  }
+
+  .report-button.active {
+    color: #2357A5;
+  }
+
+  
+
+  /*Edit Store*/
+
+  .store-setting-container {
+    margin: 20px;
+    max-width: 500px;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .store-setting-form {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Define a CSS class to style the image container with the background color */
+.image-container {
+  width: 150px; /* Adjust the width as needed */
+  height: 100px; /* Adjust the height as needed */
+  background-color: #D9D9D9; /* Background color to display when the URL is empty */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 27px;
+  margin-right: 37%;
+}
+
+/* Style for the image inside the container */
+.store-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Optional: maintain the image's aspect ratio */
+  border-radius: 27px;
+}
+  
+  .form-group {
+    margin-bottom: 20px;
+    display: flex;
+  }
+
+  
+  .form-group label {
+    margin-bottom: 5px;
+    flex: 1;
+  }
+  
+  .form-group input {
+    margin-left: 10px;
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .form-group select {
+    margin-left: 20%;
+  }
+
+  .form-control {
+    border: 2px solid #ddd;
+  }
+
+
+  
+  button {
+    background-color: #2357A5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  /*Menulist*/
+.menu-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.menu-table th {
+  background-color: #D9D9D9;
+}
+
+.menu-table td {
+  background-color: #FFFFFF;
+}
+
+.menu-table th,
+.menu-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.menu-table tr:nth-child(even) {
+  background-color: #F4F4F4; /* Background color for even rows */
+}
+
+.menu-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.edit-button {
+  background-color: #B1B1B1;
+  color: #1E1E1E;
+  border: none;
+  padding: 8px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.add-button {
+  background-color: #2357A5;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  float: right;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+/**/
+
+.back-button:hover,
+.close-store-button:hover {
+  background-color: #cc0000;
+  color: #fff;
+}
+
+.back-button {
+  background-color: white;
+  padding: 6px 40px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #007bff;
+  text-decoration: none;
+  font-size: 16px;
+  margin-right: 10px;
+  color: #007bff;
+}
+
+.back-button:hover {
+  background-color: #007bff;
+}
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.right-elements {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/*BackStore*/
+
+.food-order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.food-order-table th {
+  border: 1px solid #ddd;
+  border-right: none; /* Remove right border for th elements */
+  border-left: none;
+  padding: 10px;
+  text-align: center;
+  font-size: larger;
+}
+
+.food-order-table td {
+  border: 1px solid #ddd;
+  border-left: none; /* Remove left border for td elements */
+  border-right: none;
+  padding: 6px 8px;
+  text-align: center;
+  align-items: center;
+  font-size: larger;
+  padding-bottom: 0px;
+}
+
+.food-order-table td:first-child {
+  border-left: 1px solid #ddd; /* Remove the left border for the first td element */
+}
+
+.food-order-table td:last-child {
+  border-right: 1px solid #ddd; /* Remove the left border for the first td element */
+}
+
+
+.food-order-table th {
+  background-color: #D9D9D9;
+}
+
+.back-food-details {
+  max-height: 50px; /* Adjust the max-height as needed */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* Add an ellipsis (...) if the text overflows */
+  color: #9FA5AF;
+  font-size: smaller;
+  margin-bottom: 3px;
+}
+
+.finish-button {
+  background-color: #0ACA3F;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 60px;
+  font-size: 16px;
+}
+
+.finish-button:hover {
+  background-color: #0FD547; /* Change the background color on hover */
+  color: #fff; /* Change the text color on hover */
+}
+
+
+.food-order-table tbody {
+  background-color: #FFFFFF; /* Change to the desired background color */
+}
+
+/*IncomingOrder*/
+
+.incoming-order-container {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.incoming-order-title {
+  margin: 0 0 20px 0;
+}
+
+.incoming-order-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.incoming-order-item {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px; /* Add spacing between items */
+}
+
+.incoming-order-item.first-order {
+  background-color: #D9D9D9;
+}
+
+.incoming-menu-details {
+  flex: 1;
+}
+
+.incoming-order-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.incoming-order-price {
+  font-size: 14px;
+  color: #777;
+}
+
+.incoming-payment-status {
+  font-size: 16px;
+  color: #007bff;
+}
+
+/*CurrentOrder*/
+
+.current-order-container {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.current-order-title {
+  margin: 0 0 20px 0;
+}
+
+.current-order-list {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.current-order-item {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 8px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 8px; /* Add spacing between items */
+}
+
+/* Green border for "ชำระเงินแล้ว" status */
+.current-order-item.green-border {
+  border-color: green;
+}
+
+/* Red border for "จ่ายหน้าร้าน" status */
+.current-order-item.yellow-border {
+  border-color:red;
+  ;
+}
+
+.current-order-item.first-order {
+  background-color:#D9D9D9;
+}
+
+
+.current-menu-details {
+  flex: 1;
+  margin-left: 30%;
+  position: relative;
+}
+
+.current-menu-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.current-menu-price {
+  font-size: 14px;
+  color: #777;
+}
+
+
+
+.current-payment-status {
+  font-size: 16px;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.current-order-queue {
+  margin-left: 2%;
+  font-weight: bold;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+/*FrontStore*/
+
+.front-order-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  overflow-x: hidden;
+  /* Adjust this height as needed based on your layout */
+  height: 75vh;
+}
+
+.front-order-column {
+  flex: 1;
+  padding: 5px;
+}
+
+.separator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px; /* Adjust the width as needed */
+  background-color: #000000; /* Choose your separator color */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.front2-order-container {
+  max-height: 100%;
+  overflow-y: auto;
+  /* Add a bit of padding to keep content from touching the edges */
+  padding-right: 10px;
+}
+
+.front-tab-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #D9D9D9;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 82%;
+  border-top: 1px solid #ddd;
+  box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.front-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+
+}
+
+.front-tab.active {
+  border-bottom: 2px solid #007bff;
+}
+
+.front-finish-button {
+  background-color: #0ACA3F;
+  width: 20%;
+  border-radius: 6px;
+}
+
+.selected {
+  background-color: #d9d9d9;
+}
+
+.arrow-buttons {
+  display: inline-flex; /* Display the arrow buttons in a single line */
+  align-items: center; /* Vertically center the arrow buttons */
+  margin-left: 10px; /* Add some margin to separate from the finish button */
+}
+
+.vertical-arrow {
+  margin: 0 5px; /* Add some spacing between the arrow buttons */
+}
+
+h1, h2, h3, h4, h5, h6, div, p {
+  font-family: 'Prompt', sans-serif;
+}
+
+.container {
+  font-family: 'Prompt', sans-serif;
+  font-weight: 100;
+}
+
+.delete-button {
+  background-color: white;
+  border: 1px solid red;
+  color: red; /* Set text color to red */
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 10px;
+}
+
+.delete-button:hover {
+  background-color: red; /* Change background color on hover */
+  color: white; /* Change text color on hover */
+}
+
+.button-group2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-button {
+  background-color: #2357A5;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.submit-button,
+.delete-button {
+  flex: 1;
+}
+
+/* StatusSwitch.css */
+
+.status-switch {
+  display: inline-block;
+  position: relative;
+  width: 70px; /* Increase the width for a larger switch */
+  height: 34px; /* Increase the height for a larger switch */
+  background-color: #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.status-slider {
+  position: absolute;
+  width: 40px; /* Increase the width for a larger slider */
+  height: 35px; /* Increase the height for a larger slider */
+  border-radius: 10px;
+  background-color: #2357A5;
+
+  transition: 0.4s;
+  transform: translateX(0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.status-slider.Open {
+  background-color: #2357A5; /* Adjust the color for open status */
+  transform: translateX(0%);
+}
+
+.status-slider.Closed {
+  background-color: #A52323;
+  transform: translateX(35px); /* Adjust for the larger switch */
+}
+
+
+.status-text {
+  position: absolute;
+  top: 50%; /* Vertically center the text within the slider */
+  transform: translateY(-50%);
+  left: 0;
+  width: 100%; /* Expand the text to cover the slider */
+  text-align: center; /* Center the text horizontally */
+  font-size: 14px; /* Increase the font size for the status text */
+  color: #FFFFFF;
+}
+
+.switch-label {
+  font-weight: bold;
+  font-size: 14px; /* Increase the font size for the label */
+}
+
+.selected-row {
+  background-color: #F4F4F4;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 80vh; /* This ensures the container takes the full height of the viewport */
+}
+
+.login-button {
+  background-color: #2357A5;
+  border-radius: 5px;
+  padding: 8px 13px;
+  flex: 1;
+  font-size: larger;
+}
+
+.sidebar {
+  width: 200px;
+  height: 100%;
+  background-color: #FFFFFF;
+  padding-top: 20px;
+  position: fixed;
+  border: 2px solid #ddd;
+}
+
+.sidebar-link {
+  display: block;
+  padding: 10px;
+  color: #000000;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+
+.show-password-button {
+  border-radius: 5px;
+}
