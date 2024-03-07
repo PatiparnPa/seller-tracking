@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { AppBar } from "./AppBar";
 import { Link } from "react-router-dom";
 
-
 export const CreateMenu = () => {
   const navigate = useNavigate();
   const storeId = "65a39b4ae668f5c8329fac98";
@@ -55,6 +54,7 @@ export const CreateMenu = () => {
       product_img_url: menuImage,
       product_tag: "normal",
       store_id: storeId,
+      product_type:'normal'
     };
 
     fetch("https://order-api-patiparnpa.vercel.app/products/create", {
@@ -81,86 +81,77 @@ export const CreateMenu = () => {
   };
 
   return (
-    
-      <>
-        <div className="app-bar">
-        <div className="title">
-          <h5 style={{ color: "#FFFFFF" }}>
-            <Link to="/" style={{ textDecoration: "none", color: "#FFFFFF" }}>
-              IT Cafeteria
-            </Link>
-          </h5>
-        </div>
-      </div>
-        <div className="store-setting-container">
-          <h5>เพิ่มเมนูอาหาร</h5>
+    <>
+      <div className="store-setting-container">
+        <h5>เพิ่มเมนูอาหาร</h5>
+        <br />
+        {/* Display error message */}
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSubmit} className="store-setting-form">
+          <div className="form-group">
+            <label>รูปภาพอาหาร</label>
+            <div
+              className="image-container"
+              style={{ cursor: "pointer" }}
+              onClick={handleImageContainerClick}
+            >
+              {menuImage ? (
+                <img
+                  src={menuImage}
+                  alt="Store Image"
+                  className="store-image"
+                />
+              ) : (
+                <p></p>
+              )}
+            </div>
+            <input
+              type="file"
+              id="imageUpload"
+              accept="image/*"
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>ชื่ออาหาร</label>
+            <input
+              type="text"
+              value={menuName}
+              onChange={(e) => setMenuName(e.target.value)}
+              className="form-control"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>ราคา</label>
+            <input
+              type="number"
+              value={menuPrice}
+              onChange={(e) => setMenuPrice(e.target.value)}
+              className="form-control"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>สถานะ</label>
+            <select
+              value={menuStatus}
+              onChange={(e) => setMenuStatus(e.target.value)}
+              className="form-control"
+            >
+              <option value="Open">Open</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
           <br />
-          {/* Display error message */}
-          {error && <p className="error-message">{error}</p>}
-          <form onSubmit={handleSubmit} className="store-setting-form">
-            <div className="form-group">
-              <label>รูปภาพอาหาร</label>
-              <div
-                className="image-container"
-                style={{ cursor: "pointer" }}
-                onClick={handleImageContainerClick}
-              >
-                {menuImage ? (
-                  <img
-                    src={menuImage}
-                    alt="Store Image"
-                    className="store-image"
-                  />
-                ) : (
-                  <p></p>
-                )}
-              </div>
-              <input
-                type="file"
-                id="imageUpload"
-                accept="image/*"
-                onChange={handleImageUpload}
-                style={{ display: "none" }}
-              />
-            </div>
-            <div className="form-group">
-              <label>ชื่ออาหาร</label>
-              <input
-                type="text"
-                value={menuName}
-                onChange={(e) => setMenuName(e.target.value)}
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>ราคา</label>
-              <input
-                type="number"
-                value={menuPrice}
-                onChange={(e) => setMenuPrice(e.target.value)}
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>สถานะ</label>
-              <select
-                value={menuStatus}
-                onChange={(e) => setMenuStatus(e.target.value)}
-                className="form-control"
-              >
-                <option value="Open">Open</option>
-                <option value="Closed">Closed</option>
-              </select>
-            </div>
-            <br />
-            <br />
-            <button type="submit" className="submit-button">
-              สร้าง
-            </button>
-          </form>
-        </div>
-      </>
+          <br />
+          <button type="submit" className="submit-button">
+            สร้าง
+          </button>
+        </form>
+      </div>
+    </>
   );
 };

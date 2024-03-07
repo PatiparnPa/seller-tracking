@@ -3,7 +3,7 @@ import Sidebar from "./SideBar";
 
 export const AdminOverview = () => {
   return (
-    <div style={{ display: "flex", height: "90vh" }}>
+    <div style={{ display: "flex", height: "80vh" }}>
       <Sidebar />
       <div style={{ flex: 1, paddingLeft: "200px", paddingRight: "20px" }}>
         <div className="report-content-row">

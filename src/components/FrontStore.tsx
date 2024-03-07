@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 interface Order {
   _id: string;
   productIDs: {
     productId: string;
     quantity: number;
+    orderDetail?: string;
     _id: string;
   }[];
   userID: string;
@@ -18,16 +20,69 @@ interface Order {
   __v: number;
   foodDetails: {
     foodName: string;
-    foodPrice: number;
     quantity: number;
   }[];
+  queueNumber?: string;
 }
 
 export const FrontStore = () => {
   const [foodOrders, setFoodOrders] = useState<Order[]>([]);
+  const [checkedOrders, setCheckedOrders] = useState<string[]>([]);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/");
+  };
+
+  const handleCheckboxChange = (orderId: string) => {
+    const isChecked = checkedOrders.includes(orderId);
+    if (isChecked) {
+      setCheckedOrders(checkedOrders.filter((id) => id !== orderId));
+    } else {
+      setCheckedOrders([...checkedOrders, orderId]);
+    }
+  };
+
+  const handleCancelOrders = async () => {
+    try {
+      await Promise.all(
+        checkedOrders.map(async (orderId) => {
+          const response = await fetch(
+            `https://order-api-patiparnpa.vercel.app/orders/${orderId}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ status: "cancel" }),
+            }
+          );
+          if (!response.ok) {
+            throw new Error(`Failed to cancel order ${orderId}`);
+          }
+        })
+      );
+
+      // Update UI to reflect the cancelled orders
+      const updatedOrders = foodOrders.map((order) => {
+        if (checkedOrders.includes(order._id)) {
+          return {
+            ...order,
+            status: "cancel",
+          };
+        }
+        return order;
+      });
+      setFoodOrders(updatedOrders);
+      setCheckedOrders([]);
+      console.log("Orders cancelled successfully!");
+    } catch (error) {
+      console.error("Error cancelling orders:", error);
+    }
+  };
+
 
   useEffect(() => {
-    // Fetch food orders from the API when the component mounts
     const fetchFoodOrders = async () => {
       try {
         const response = await fetch(
@@ -38,8 +93,30 @@ export const FrontStore = () => {
         }
         const orders = await response.json();
 
+        // Fetch queue number for each order
+        const updatedOrders = await Promise.all(
+          orders.map(async (order: Order) => {
+            const queueResponse = await fetch(
+              `https://order-api-patiparnpa.vercel.app/queues/order/${order._id}`
+            );
+            if (!queueResponse.ok) {
+              throw new Error("Failed to fetch queue number");
+            }
+            const queueData = await queueResponse.json();
+            const queueNumber = queueData[0]?.queueNumber || "N/A";
+
+            return {
+              ...order,
+              queueNumber: queueNumber,
+            };
+          })
+        );
+
+        // Now updatedOrders contains the queue number for each order
+        // Continue with your existing logic to fetch product details and update state
+
         // Create an array to store the additional food details
-        const foodDetailsPromises = orders.map(async (order: Order) => {
+        const foodDetailsPromises = updatedOrders.map(async (order: Order) => {
           // Fetch the product details for each food item
           const productDetailsPromises = order.productIDs.map(
             async (product) => {
@@ -54,7 +131,6 @@ export const FrontStore = () => {
               // Return the food details for each product
               return {
                 foodName: productData.name,
-                foodPrice: productData.price,
                 quantity: product.quantity,
               };
             }
@@ -80,14 +156,13 @@ export const FrontStore = () => {
         console.error("Error fetching food orders:", error);
       }
     };
-
     // Fetch data initially
     fetchFoodOrders();
 
     // Set up interval to fetch data every 15 seconds
     const intervalId = setInterval(() => {
       fetchFoodOrders();
-    }, 15000);
+    }, 300000000000000000);
 
     // Clear interval on component unmount
     return () => {
@@ -95,6 +170,8 @@ export const FrontStore = () => {
       console.log("Interval cleared");
     };
   }, []); // Empty dependency array to run effect only once on mount
+
+  
 
   return (
     <>
@@ -122,6 +199,7 @@ export const FrontStore = () => {
         </div>
         <div className="right-element">
           <button
+            onClick={handleClick}
             style={{
               backgroundColor: "#FF3A3A",
               borderRadius: "5px",
@@ -155,7 +233,8 @@ export const FrontStore = () => {
                   <input
                     type="checkbox"
                     id={`checkbox-${index}`}
-                    value={order._id}
+                    checked={checkedOrders.includes(order._id)}
+                    onChange={() => handleCheckboxChange(order._id)}
                     style={{
                       width: "18px",
                       height: "18px",
@@ -163,29 +242,36 @@ export const FrontStore = () => {
                   />
                 </td>
                 <td>
-                  <b>A51</b>
+                  <b>{order.queueNumber}</b>
                 </td>
                 <td style={{ textAlign: "left" }}>
                   {order.foodDetails.map((food, i) => (
                     <div key={i}>
-                      <p>{food.foodName}</p>
+                      <p style={{ paddingBottom: "-5px" }}>{food.foodName}</p>
+                      <p className="back-food-details">
+                        {order.productIDs[i]?.orderDetail || "ไม่มี"}
+                      </p>
                     </div>
                   ))}
                 </td>
                 <td>
                   {order.foodDetails.map((food, i) => (
                     <div key={i} style={{ marginBottom: "-5px" }}>
-                      <p>{food.quantity} จาน</p>
+                      <p style={{ padding: "15px" }}>{food.quantity} จาน</p>
                     </div>
                   ))}
                 </td>
 
-                <td>
-                  {order.foodDetails.reduce(
-                    (total, food) => total + food.foodPrice * food.quantity,
-                    0
-                  )}{" "}
-                  บาท
+                <td
+                  className={
+                    order.foodDetails.some(
+                      (food) => food.foodName === "เมนูตามสั่ง"
+                    )
+                      ? "red-price"
+                      : ""
+                  }
+                >
+                  {order.amount} บาท
                 </td>
                 <td>{order.status}</td>
                 <td>{order.payment_method_status}</td>
@@ -202,6 +288,7 @@ export const FrontStore = () => {
               <th></th>
               <th style={{ textAlign: "right" }}>
                 <button
+                  onClick={handleCancelOrders}
                   style={{
                     backgroundColor: "#FF3A3A",
                     borderRadius: "7px",

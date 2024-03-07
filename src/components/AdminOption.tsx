@@ -13,7 +13,7 @@ export const AdminOption = () => {
 
   return (
     <>
-      <div style={{ display: "flex", height: "90vh" }}>
+      <div style={{ display: "flex", height: "80vh" }}>
         <Sidebar />
         <div style={{ flex: 1, paddingLeft: "200px", paddingRight: "20px" }}>
           <div className="store-setting-container">
