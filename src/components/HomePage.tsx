@@ -9,6 +9,7 @@ interface HomePageProps {
 
 export const HomePage = () => {
   const [productCount, setProductCount] = useState(0);
+  const storeId = '65a39b4ae668f5c8329fac98'
 
   useEffect(() => {
     // Fetch the products from the API

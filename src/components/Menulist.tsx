@@ -46,7 +46,7 @@ export const Menulist = () => {
     const fetchMenuItems = async () => {
       try {
         const response = await fetch(
-          "https://order-api-patiparnpa.vercel.app/products/store/65a39b4ae668f5c8329fac98"
+          "https://order-api-patiparnpa.vercel.app/products/store/65a39b4ae668f5c8329fac98/normal"
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

@@ -8,7 +8,7 @@ export const EditStore = () => {
   const [storeId, setStoreId] = useState("");
   const [storeImage, setStoreImage] = useState("");
   const [storeName, setStoreName] = useState("");
-  const [storeStatus, setStoreStatus] = useState("");
+  const [storeStatus, setStoreStatus] = useState<string>("open");
   const [bankName, setBankName] = useState("");
   const [accountName, setAccountName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
@@ -175,6 +175,13 @@ export const EditStore = () => {
                 required
               />
             </div>
+            <div className="form-group">
+            <label>สถานะ</label>
+            <select value={storeStatus} onChange={(e) => setStoreStatus(e.target.value)} className="form-control">
+              <option value="open">Open</option>
+              <option value="close">Closed</option>
+            </select>
+          </div>
             <br />
             <h5 style={{ color: "#002336" }}>ตั้งค่าการรับเงิน</h5>
             <br />
