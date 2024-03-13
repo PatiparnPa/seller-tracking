@@ -10,7 +10,7 @@ export const AppBar: React.FC<AppBarProps> = ({ storeData }) => {
     <>
       <div className="app-bar">
         <Link to="/" style={{ textDecoration: "none", color: "#FFFFFF" }}>
-          <h5>IT Cafeteria</h5>
+          <h5>IT Cafeteriaaaa</h5>
         </Link>
         <div className="right-elements">
           <div className="elements-container">
