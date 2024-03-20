@@ -1,11 +1,13 @@
 import { AppBar } from "./AppBar";
 import Sidebar from "./SideBar";
 import { useState, useEffect } from "react";
+import { useUser } from "./UserContext";
 
 export const AdminOption = () => {
   const [adminName, setAdminName] = useState("");
   const [adminEmail, setAdminEmail] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
+  const {storeId} = useUser()
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -32,9 +34,9 @@ export const AdminOption = () => {
                 />
               </div>
               <div className="form-group">
-                <label>อีเมล</label>
+                <label>เบอร์โทรศัพท์</label>
                 <input
-                  type="email"
+                  type="text"
                   value={adminEmail}
                   onChange={(e) => setAdminEmail(e.target.value)}
                   className="form-control"

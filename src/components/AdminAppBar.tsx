@@ -5,6 +5,14 @@ interface AppBarProps {
   storeData: StoreData | null;
 }
 
+const handleLogout = () => {
+  // Delete access token from the cookie
+  document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  
+  // Redirect to the login page or any other page you prefer
+  window.location.href = "/login"; // Example: Redirect to the login page
+};
+
 export const AdminAppBar: React.FC<AppBarProps> = ({ storeData }) => {
   return (
     <>
@@ -15,7 +23,7 @@ export const AdminAppBar: React.FC<AppBarProps> = ({ storeData }) => {
         <div className="right-elements">
           <div className="elements-container">
             <h5 style={{ color: "#FFFFFF" }}>
-              {storeData?.name || "ร้านพี่หมี"}
+              {storeData?.name || "ชื่่อแอดมิน"}
             </h5>
             <div className="dropdown">
               <button className="dropdown-button"> &#9660;</button>
@@ -26,7 +34,7 @@ export const AdminAppBar: React.FC<AppBarProps> = ({ storeData }) => {
                 <Link to="/login">หน้า login</Link>
                 <Link to="/admin">หน้า admin</Link>
                 <hr className="divider" />
-                <button className="dropdown-link-button">ออกจากระบบ</button>
+                <button className="dropdown-link-button" onClick={handleLogout}>ออกจากระบบ</button>
               </div>
             </div>
           </div>

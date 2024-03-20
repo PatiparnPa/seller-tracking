@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "./UserContext";
 
 interface Product {
   _id: string;
@@ -33,6 +34,8 @@ export const BackStore = () => {
   const [foodOrders, setFoodOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [checkedOrders, setCheckedOrders] = useState<string[]>([]);
+  const [autoCheckEnabled, setAutoCheckEnabled] = useState(false);
+  const { storeId } = useUser();
 
   const handleCheckboxChange = (orderId: string) => {
     const isChecked = checkedOrders.includes(orderId);
@@ -69,7 +72,9 @@ export const BackStore = () => {
       );
 
       // Remove checked orders from the list
-      setFoodOrders(updatedOrders.filter((order) => !checkedOrders.includes(order._id)));
+      setFoodOrders(
+        updatedOrders.filter((order) => !checkedOrders.includes(order._id))
+      );
       setCheckedOrders([]);
     } catch (error) {
       console.error("Error updating orders:", error);
@@ -81,7 +86,7 @@ export const BackStore = () => {
       try {
         // Fetch food orders from the API
         const response = await fetch(
-          "https://order-api-patiparnpa.vercel.app/orders/store/65a39b4ae668f5c8329fac98/open"
+          `https://order-api-patiparnpa.vercel.app/orders/store/${storeId}/open`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -214,11 +219,22 @@ export const BackStore = () => {
               <th></th>
               <th></th>
               <th style={{ textAlign: "right", paddingRight: "20px" }}>
-                <button className="finish-button" onClick={handleFinishButtonClick}>เสร็จสิ้น</button>
+                <button
+                  className="finish-button"
+                  onClick={handleFinishButtonClick}
+                >
+                  เสร็จสิ้น
+                </button>
               </th>
             </tr>
           </tfoot>
         </table>
+        {loading && <div>Loading...</div>}
+        {!loading && foodOrders.length === 0 && (
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            There are no orders.
+          </div>
+        )}
       </div>
     </>
   );

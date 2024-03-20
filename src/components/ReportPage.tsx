@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AppBar } from "./AppBar";
+import { useUser } from "./UserContext";
 
 interface ReportData {
   totalProducts: number;
@@ -9,13 +10,14 @@ interface ReportData {
 }
 
 export const ReportPage = () => {
+  const {storeId} = useUser()
   const [reportData, setReportData] = useState<ReportData | null>(null);
   const [timeFilter, setTimeFilter] = useState<string>("d"); // Default to daily
 
   useEffect(() => {
     // Fetch report data from the API when the component mounts or when timeFilter changes
     fetch(
-      `https://order-api-patiparnpa.vercel.app/reports/65a39b4ae668f5c8329fac98?timeFilter=${timeFilter}:`
+      `https://order-api-patiparnpa.vercel.app/reports/${storeId}?timeFilter=${timeFilter}:`
     )
       .then((response) => response.json())
       .then((data: ReportData) => {

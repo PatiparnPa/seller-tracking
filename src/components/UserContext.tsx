@@ -1,18 +1,39 @@
 // UserContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { jwtDecode } from "jwt-decode";
+import Cookies from 'universal-cookie';
 
 interface UserContextProps {
-  userId: string | null;
-  setUserId: (id: string | null) => void;
+  storeId: string | null;
+  setStoreId: (id: string | null) => void;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
 
 const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [userId, setUserId] = useState<string | null>(null);
+  const [storeId, setStoreId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const cookies = new Cookies();
+    const accessToken = cookies.get('access_token');
+
+    if (accessToken) {
+      try {
+        const decodedToken: any = jwtDecode(accessToken);
+        console.log('Decoded Token:', decodedToken);
+        setStoreId(decodedToken.storeId);
+      } catch (error) {
+        console.error('Error decoding access token:', error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log('Store ID updated:', storeId);
+  }, [storeId]);
 
   return (
-    <UserContext.Provider value={{ userId, setUserId }}>
+    <UserContext.Provider value={{ storeId, setStoreId }}>
       {children}
     </UserContext.Provider>
   );

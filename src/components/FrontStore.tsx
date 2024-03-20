@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { useUser } from "./UserContext";
 
 interface Order {
   _id: string;
@@ -28,7 +29,9 @@ interface Order {
 export const FrontStore = () => {
   const [foodOrders, setFoodOrders] = useState<Order[]>([]);
   const [checkedOrders, setCheckedOrders] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { storeId } = useUser();
 
   const handleClick = () => {
     navigate("/");
@@ -81,12 +84,11 @@ export const FrontStore = () => {
     }
   };
 
-
   useEffect(() => {
     const fetchFoodOrders = async () => {
       try {
         const response = await fetch(
-          "https://order-api-patiparnpa.vercel.app/orders/store/65a39b4ae668f5c8329fac98"
+          `https://order-api-patiparnpa.vercel.app/orders/store/${storeId}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -154,6 +156,8 @@ export const FrontStore = () => {
         console.log("Data reload successful!");
       } catch (error) {
         console.error("Error fetching food orders:", error);
+      } finally {
+        setLoading(false); // Set loading to false regardless of success or failure
       }
     };
     // Fetch data initially
@@ -170,8 +174,6 @@ export const FrontStore = () => {
       console.log("Interval cleared");
     };
   }, []); // Empty dependency array to run effect only once on mount
-
-  
 
   return (
     <>
@@ -305,6 +307,10 @@ export const FrontStore = () => {
             </tr>
           </tfoot>
         </table>
+        {loading && <div>Loading...</div>}
+        {!loading && foodOrders.length === 0 && (
+          <div style={{ textAlign: "center" }}>There are no orders.</div>
+        )}
       </div>
     </>
   );
