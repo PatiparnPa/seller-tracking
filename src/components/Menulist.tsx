@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { AppBar } from "./AppBar";
 import { useState, useEffect } from "react";
 import StatusSwitch from "./StatusSwitch";
+import { useUser } from "./UserContext";
 
 interface MenuItem {
   _id: string;
@@ -17,7 +18,7 @@ interface MenuItem {
 }
 
 export const Menulist = () => {
-  const storeId = '65a39b4ae668f5c8329fac98';
+  const {storeId} = useUser()
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
   async function updateStatusOnServer(menuId: string, newStatus: string) {
@@ -46,7 +47,7 @@ export const Menulist = () => {
     const fetchMenuItems = async () => {
       try {
         const response = await fetch(
-          "https://order-api-patiparnpa.vercel.app/products/store/65a39b4ae668f5c8329fac98/normal"
+          `https://order-api-patiparnpa.vercel.app/products/store/${storeId}/normal`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

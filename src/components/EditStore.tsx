@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { AppBar } from "./AppBar";
 import { useParams, useNavigate } from "react-router-dom";
+import { useUser } from "./UserContext";
 
 export const EditStore = () => {
   const navigate = useNavigate();
-
-  const [storeId, setStoreId] = useState("");
+  const {storeId} = useUser()
   const [storeImage, setStoreImage] = useState("");
   const [storeName, setStoreName] = useState("");
   const [storeStatus, setStoreStatus] = useState<string>("open");
@@ -36,26 +36,27 @@ export const EditStore = () => {
     }
   };
 
-  const handleImageUpload2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQRCodeImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     const maxSize = 1024 * 1024;
-
+  
     if (file) {
       if (file.size > maxSize) {
         setError("Image size is too large. Please choose a smaller image.");
         return;
       }
-
+  
       const reader = new FileReader();
-
+  
       reader.onloadend = () => {
         setAccountImage(reader.result as string);
         setError(""); // Clear any previous error message
       };
-
+  
       reader.readAsDataURL(file);
     }
   };
+  
 
   const handleImageContainerClick = () => {
     const fileInput = document.getElementById(
@@ -67,9 +68,19 @@ export const EditStore = () => {
     }
   };
 
+  const handleImageContainerClick2 = () => {
+    const fileInput = document.getElementById(
+      "qrCodeImageUpload"
+    ) as HTMLInputElement | null;
+
+    if (fileInput) {
+      fileInput.click();
+    }
+  };
+
   useEffect(() => {
     fetch(
-      "https://order-api-patiparnpa.vercel.app/stores/65a39b4ae668f5c8329fac98"
+      `https://order-api-patiparnpa.vercel.app/stores/${storeId}`
     )
       .then((response) => {
         if (!response.ok) {
@@ -79,7 +90,6 @@ export const EditStore = () => {
       })
       .then((data) => {
         console.log("API Response:", data);
-        setStoreId(data._id);
         setStoreName(data.name);
         setStoreStatus(data.status);
         setBankName(data.bank_name);
@@ -107,7 +117,7 @@ export const EditStore = () => {
     };
 
     fetch(
-      "https://order-api-patiparnpa.vercel.app/stores/65a39b4ae668f5c8329fac98",
+      `https://order-api-patiparnpa.vercel.app/stores/${storeId}`,
       {
         method: "PUT",
         headers: {
@@ -222,7 +232,7 @@ export const EditStore = () => {
               <div
                 className="image-container"
                 style={{ cursor: "pointer" }}
-                onClick={handleImageContainerClick}
+                onClick={handleImageContainerClick2}
               >
                 {accountImage ? (
                   <img
@@ -236,9 +246,9 @@ export const EditStore = () => {
               </div>
               <input
                 type="file"
-                id="imageUpload"
+                id="qrCodeImageUpload"
                 accept="image/*"
-                onChange={handleImageUpload2}
+                onChange={handleQRCodeImageUpload}
                 style={{ display: "none" }}
               />
             </div>

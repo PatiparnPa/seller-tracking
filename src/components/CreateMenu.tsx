@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppBar } from "./AppBar";
 import { Link } from "react-router-dom";
+import { useUser } from "./UserContext";
 
 export const CreateMenu = () => {
   const navigate = useNavigate();
-  const storeId = "65a39b4ae668f5c8329fac98";
+  const {storeId} = useUser()
   const [menuImage, setMenuImage] = useState<string>("");
   const [menuName, setMenuName] = useState<string>("");
   const [menuPrice, setMenuPrice] = useState<string>("");

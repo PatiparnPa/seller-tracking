@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AppBar } from "./AppBar";
 import { StoreData } from "../types";
+import { useUser } from "./UserContext";
 
 interface HomePageProps {
   storeData: StoreData | null;
@@ -9,12 +10,12 @@ interface HomePageProps {
 
 export const HomePage = () => {
   const [productCount, setProductCount] = useState(0);
-  const storeId = '65a39b4ae668f5c8329fac98'
+  const {storeId} = useUser()
 
   useEffect(() => {
     // Fetch the products from the API
     fetch(
-      "https://order-api-patiparnpa.vercel.app/products/store/65a39b4ae668f5c8329fac98"
+      `https://order-api-patiparnpa.vercel.app/products/store/${storeId}`
     )
       .then((response) => response.json())
       .then((data) => {
