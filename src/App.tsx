@@ -18,6 +18,8 @@ import './App.css';
 import GlobalStyles from './components/GlobalStyle';
 import { AccessStorePage } from './components/AccessStorePage';
 import { AdminAppBar } from './components/AdminAppBar';
+import Cookies from 'universal-cookie';
+import { useUser } from './components/UserContext';
 
 interface StoreData {
   _id: string;
@@ -32,23 +34,55 @@ interface StoreData {
   updatedAt: string;
   __v: number;
 }
+const cookies = new Cookies();
 
 function App() {
   const [storeData, setStoreData] = useState<StoreData | null>(null);
+  const [storeIdInitialized, setStoreIdInitialized] = useState(false);
   const location = useLocation();
+  const { storeId } = useUser();
+  
+  useEffect(() => {
+    if (storeId) {
+      setStoreIdInitialized(true);
+    }
+  }, [storeId]);
 
   useEffect(() => {
     // Fetch store data from the API when the component mounts
-    fetch('https://order-api-patiparnpa.vercel.app/stores/65a39b4ae668f5c8329fac98')
-      .then((response) => response.json())
-      .then((data: StoreData) => {
+    if (storeIdInitialized) {
+      fetchStoreData();
+    }
+  }, [storeIdInitialized]); // Only run effect when storeIdInitialized changes
+
+  const fetchStoreData = () => {
+    fetch(`https://order-api-patiparnpa.vercel.app/stores/${storeId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch store data');
+        }
+        return response.json();
+      })
+      .then((data) => {
         console.log('API Response (Store Data):', data);
         setStoreData(data);
       })
       .catch((error) => {
         console.error('Error fetching store data:', error);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    // Check for access token in cookies
+    const accessToken = cookies.get('access_token');
+    if (!accessToken && location.pathname !== '/login') {
+      // Redirect the user to the login page if no access token found
+      window.location.href = '/login';
+    }
+  }, [location.pathname]); // Only re-run effect when location.pathname changes
+
+  
+
 
   const appBarRoutes = ['/', '/editstore', '/report', '/menulist', '/editmenu', '/createmenu'];
   const adminBarRoutes = ['/admin', '/adminstore', '/adminoption', '/createstore', '/accessstore'];
