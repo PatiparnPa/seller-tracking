@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Sidebar from "./SideBar";
 
 export const AdminOverview = () => {
@@ -10,21 +10,27 @@ export const AdminOverview = () => {
     const fetchData = async () => {
       try {
         // Fetch store count
-        const storeResponse = await fetch('https://order-api-patiparnpa.vercel.app/stores/');
+        const storeResponse = await fetch(
+          "https://order-api-patiparnpa.vercel.app/stores/"
+        );
         const storeData = await storeResponse.json();
         setStoreCount(storeData.length);
 
         // Fetch user count
-        const userResponse = await fetch('https://order-api-patiparnpa.vercel.app/users');
+        const userResponse = await fetch(
+          "https://order-api-patiparnpa.vercel.app/users"
+        );
         const userData = await userResponse.json();
         setUserCount(userData.length);
 
         // Fetch order count
-        const orderResponse = await fetch('https://order-api-patiparnpa.vercel.app/orders');
+        const orderResponse = await fetch(
+          "https://order-api-patiparnpa.vercel.app/orders"
+        );
         const orderData = await orderResponse.json();
         setOrderCount(orderData.length);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
