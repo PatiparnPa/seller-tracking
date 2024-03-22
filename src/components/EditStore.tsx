@@ -37,8 +37,9 @@ export const EditStore = () => {
     "033": "อาคารสงเคราะห์",
   };
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     const maxSize = 1024 * 1024;
 
     if (file) {
@@ -47,39 +48,63 @@ export const EditStore = () => {
         return;
       }
 
-      const reader = new FileReader();
+      try {
+        const formData = new FormData();
+        formData.append("img", file);
 
-      reader.onloadend = () => {
-        setStoreImage(reader.result as string);
-        setError(""); // Clear any previous error message
-      };
+        const response = await fetch("https://upload2firebase.vercel.app/upload", {
+          method: "POST",
+          body: formData,
+        });
 
-      reader.readAsDataURL(file);
+        if (!response.ok) {
+          throw new Error(`Failed to upload image: ${response.statusText}`);
+        }
+
+        const imageUrl = await response.text();
+        setStoreImage(imageUrl);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        setError("Failed to upload image. Please try again.");
+      }
     }
   };
 
-  const handleQRCodeImageUpload = (
+  const handleQRCodeImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
     const maxSize = 1024 * 1024;
-
+  
     if (file) {
       if (file.size > maxSize) {
         setError("Image size is too large. Please choose a smaller image.");
         return;
       }
-
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setAccountImage(reader.result as string);
+  
+      try {
+        const formData = new FormData();
+        formData.append("img", file);
+  
+        const response = await fetch("https://upload2firebase.vercel.app/upload", {
+          method: "POST",
+          body: formData,
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Failed to upload image: ${response.statusText}`);
+        }
+  
+        const imageUrl = await response.text();
+        setAccountImage(imageUrl);
         setError(""); // Clear any previous error message
-      };
-
-      reader.readAsDataURL(file);
+      } catch (error) {
+        console.error("Error uploading QR code image:", error);
+        setError("Failed to upload QR code image. Please try again.");
+      }
     }
   };
+  
 
   const handleImageContainerClick = () => {
     const fileInput = document.getElementById(
@@ -131,7 +156,7 @@ export const EditStore = () => {
       name: storeName,
       status: storeStatus,
       store_img_url: storeImage,
-      bank_name: selectedBank,
+      bank_name: selectedBank, 
       owner_name: accountName,
       card_num: accountNumber,
       qr_img_url: accountImage,

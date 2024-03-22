@@ -249,14 +249,18 @@ export const FrontStore = () => {
                 <td style={{ textAlign: "left" }}>
                   {order.foodDetails.map((food, i) => (
                     <div key={i}>
-                      <p style={{ paddingBottom: "-5px" }}>{food.foodName}</p>
+                      <p
+                        style={{ paddingBottom: "-5px", fontWeight: "bolder" }}
+                      >
+                        {food.foodName}
+                      </p>
                       <p className="back-food-details">
                         {order.productIDs[i]?.orderDetail || "ไม่มี"}
                       </p>
                     </div>
                   ))}
                 </td>
-                <td>
+                <td style={{ fontWeight: "bolder" }}>
                   {order.foodDetails.map((food, i) => (
                     <div key={i} style={{ marginBottom: "-5px" }}>
                       <p style={{ padding: "15px" }}>{food.quantity} จาน</p>
@@ -272,11 +276,50 @@ export const FrontStore = () => {
                       ? "red-price"
                       : ""
                   }
+                  style={{ fontWeight: "bolder" }}
                 >
                   {order.amount} บาท
                 </td>
-                <td>{order.status}</td>
-                <td>{order.payment_method_status}</td>
+                <td
+                  style={{
+                    fontWeight: "bolder",
+                    color:
+                      order.status === "close" || order.status === "ready"
+                        ? "#0ACA3F"
+                        : "red",
+                  }}
+                >
+                  {order.status === "open"
+                    ? "อยู่ในครัว"
+                    : order.status === "close" || order.status === "ready"
+                    ? "ทำเสร็จแล้ว"
+                    : order.status === "cancel"
+                    ? "ยกเลิกแล้ว"
+                    : "Unknown Status"}
+                </td>
+
+                <td
+                  style={{
+                    fontWeight: "bolder",
+                    color:
+                      order.payment_method_status === "paid"
+                        ? "#0ACA3F"
+                        : "red",
+                  }}
+                >
+                  {(() => {
+                    switch (order.payment_method_status) {
+                      case "scan":
+                        return "สแกนจ่าย";
+                      case "cash":
+                        return "จ่ายหน้าร้าน";
+                      case "paid":
+                        return "ชำระแล้ว";
+                      default:
+                        return "Unknown Status";
+                    }
+                  })()}
+                </td>
               </tr>
             ))}
           </tbody>

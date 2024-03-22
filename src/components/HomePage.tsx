@@ -13,20 +13,23 @@ export const HomePage = () => {
   const {storeId} = useUser()
 
   useEffect(() => {
-    // Fetch the products from the API
-    fetch(
-      `https://order-api-patiparnpa.vercel.app/products/store/${storeId}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // Assuming the API response is an array of products
-        // Set the count of products
-        setProductCount(data.length);
-      })
-      .catch((error) => {
-        console.error("Error fetching product data:", error);
-      });
-  }, []); // Empty dependency array to run effect only once on mount
+    // Check if storeId is available
+    if (storeId) {
+      // Fetch the products from the API
+      fetch(
+        `https://order-api-patiparnpa.vercel.app/products/store/${storeId}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // Assuming the API response is an array of products
+          // Set the count of products
+          setProductCount(data.length);
+        })
+        .catch((error) => {
+          console.error("Error fetching product data:", error);
+        });
+    }
+  }, [storeId]); // Add storeId as a dependency to re-run effect when it changes
 
   return (
     <>
