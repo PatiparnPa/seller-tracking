@@ -13,7 +13,7 @@ export const EditMenu = () => {
   const [menuImage, setMenuImage] = useState("");
   const [error, setError] = useState<string>("");
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
     const maxSize = 1024 * 1024;
@@ -24,16 +24,25 @@ export const EditMenu = () => {
         return;
       }
 
-      const reader = new FileReader();
+      try {
+        const formData = new FormData();
+        formData.append("img", file);
 
-      reader.onloadend = () => {
-        setError("");
-        const imageUrl = reader.result as string;
+        const response = await fetch("https://upload2firebase.vercel.app/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to upload image: ${response.statusText}`);
+        }
+
+        const imageUrl = await response.text();
         setMenuImage(imageUrl);
-        console.log("Image URL:", imageUrl);
-      };
-
-      reader.readAsDataURL(file);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        setError("Failed to upload image. Please try again.");
+      }
     }
   };
 
