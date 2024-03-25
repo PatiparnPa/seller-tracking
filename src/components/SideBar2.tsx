@@ -4,7 +4,13 @@ import cafeIcon from "../assets/it-cafe.jpg";
 import dashboardIcon from "../assets/dashboard.jpg";
 import optionIcon from "../assets/option.jpg";
 
-export const AccessSideBar = () => {
+export const SideBar2 = () => {
+  const imageStyle = {
+    width: "48px",
+    height: "48px",
+    marginRight: "8px",
+  };
+
   const activeLinkStyle = {
     color: "#2357A5",
     fontWeight: "bold",
@@ -25,9 +31,9 @@ export const AccessSideBar = () => {
           }}
         ></img>
         <Link
-          to="/admin"
+          to="/adminstore"
           className="sidebar-link"
-          style={location.pathname === "/admin" ? activeLinkStyle : {}}
+          style={location.pathname === "/adminstore" ? activeLinkStyle : {}}
         >
           &lt; กลับสู่หน้าแอดมิน
         </Link>

@@ -88,7 +88,7 @@ export const FrontStore = () => {
     const fetchFoodOrders = async () => {
       try {
         const response = await fetch(
-          `https://order-api-patiparnpa.vercel.app/orders/store/${storeId}`
+          `https://order-api-patiparnpa.vercel.app/orders/today?storeId=${storeId}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -166,7 +166,7 @@ export const FrontStore = () => {
     // Set up interval to fetch data every 15 seconds
     const intervalId = setInterval(() => {
       fetchFoodOrders();
-    }, 300000000000000000);
+  }, 20000); // 20 seconds
 
     // Clear interval on component unmount
     return () => {
@@ -276,7 +276,7 @@ export const FrontStore = () => {
                       ? "red-price"
                       : ""
                   }
-                  style={{ fontWeight: "bolder" }}
+                  style={{ fontWeight: "bolder", paddingBottom: "5px" }}
                 >
                   {order.amount} บาท
                 </td>
@@ -287,6 +287,7 @@ export const FrontStore = () => {
                       order.status === "close" || order.status === "ready"
                         ? "#0ACA3F"
                         : "red",
+                    paddingBottom: "5px" 
                   }}
                 >
                   {order.status === "open"
@@ -301,6 +302,7 @@ export const FrontStore = () => {
                 <td
                   style={{
                     fontWeight: "bolder",
+                    paddingBottom: "5px" ,
                     color:
                       order.payment_method_status === "paid"
                         ? "#0ACA3F"
