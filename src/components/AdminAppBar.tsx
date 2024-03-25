@@ -31,8 +31,6 @@ export const AdminAppBar: React.FC<AppBarProps> = ({ storeData }) => {
                 <Link to="/admin">แดชบอร์ด</Link>
                 <Link to="/adminstore">จัดการร้านค้า</Link>
                 <Link to="/adminoption">ตั้งค่า</Link>
-                <Link to="/login">หน้า login</Link>
-                <Link to="/admin">หน้า admin</Link>
                 <hr className="divider" />
                 <button className="dropdown-link-button" onClick={handleLogout}>ออกจากระบบ</button>
               </div>

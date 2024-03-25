@@ -5,12 +5,6 @@ import dashboardIcon from "../assets/dashboard.jpg";
 import optionIcon from "../assets/option.jpg";
 
 export const AccessSideBar = () => {
-  const imageStyle = {
-    width: "48px",
-    height: "48px",
-    marginRight: "8px",
-  };
-
   const activeLinkStyle = {
     color: "#2357A5",
     fontWeight: "bold",
