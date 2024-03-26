@@ -86,7 +86,7 @@ export const BackStore = () => {
       try {
         // Fetch food orders from the API
         const response = await fetch(
-          `https://order-api-patiparnpa.vercel.app/orders/today?storeId=${storeId}&status=ready`
+          `https://order-api-patiparnpa.vercel.app/orders/today?storeId=${storeId}&status=open`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -139,7 +139,7 @@ export const BackStore = () => {
     fetchData();
 
     // Set up interval to fetch data every 15 seconds
-    const intervalId = setInterval(fetchData, 30000);
+    const intervalId = setInterval(fetchData, 25000);
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);

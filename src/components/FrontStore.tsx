@@ -166,7 +166,7 @@ export const FrontStore = () => {
     // Set up interval to fetch data every 15 seconds
     const intervalId = setInterval(() => {
       fetchFoodOrders();
-  }, 20000); // 20 seconds
+  }, 23000); // 20 seconds
 
     // Clear interval on component unmount
     return () => {
