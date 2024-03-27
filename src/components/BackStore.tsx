@@ -86,7 +86,7 @@ export const BackStore = () => {
       try {
         // Fetch food orders from the API
         const response = await fetch(
-          `https://order-api-patiparnpa.vercel.app/orders/today?storeId=${storeId}&status=open`
+          `https://order-api-patiparnpa-patiparnpas-projects.vercel.app/orders/today/open/${storeId}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
